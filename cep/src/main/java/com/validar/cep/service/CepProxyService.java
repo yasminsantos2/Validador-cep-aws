@@ -20,9 +20,10 @@ public class CepProxyService {
     private final String configuredBaseUrl;
 
     public CepProxyService(@Value("${aws.cep.api-base-url}") String baseUrl) {
-        this.configuredBaseUrl = baseUrl;
+        this.configuredBaseUrl = baseUrl == null ? "" : baseUrl.trim();
+        String normalizedBaseUrl = this.configuredBaseUrl.replaceAll("/+$", "");
         this.restClient = RestClient.builder()
-                .baseUrl(baseUrl)
+                .baseUrl(normalizedBaseUrl)
                 .build();
     }
 

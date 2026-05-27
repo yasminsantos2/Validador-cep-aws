@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { CepConsultaComponent } from './components/cep-consulta/cep-consulta.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [CepConsultaComponent],
+  template: '<app-cep-consulta />',
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('meu-app');
-}
+export class App {}

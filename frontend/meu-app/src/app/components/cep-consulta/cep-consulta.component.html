@@ -1,0 +1,90 @@
+<div class="page">
+  <header class="hero">
+    <p class="eyebrow">Validador CEP · AWS</p>
+    <h1>Simulador do fluxo completo</h1>
+    <p class="subtitle">
+      O front chama o <strong>Spring Boot</strong>, que encaminha para o
+      <strong>API Gateway</strong>, <strong>Lambda</strong> e <strong>ViaCEP</strong>.
+    </p>
+  </header>
+
+  <section class="card flow-card">
+    <h2>Fluxo da requisição</h2>
+    <ol class="flow-steps">
+      @for (step of steps(); track step.id) {
+        <li [class]="'flow-step flow-step--' + step.status">
+          <span class="flow-step__dot" aria-hidden="true"></span>
+          <div>
+            <strong>{{ step.label }}</strong>
+            <p>{{ step.detail }}</p>
+          </div>
+        </li>
+      }
+    </ol>
+    <div class="endpoints">
+      <div>
+        <span>Spring (local)</span>
+        <code>{{ springUrl }}/cep/&#123;cep&#125;</code>
+      </div>
+      <div>
+        <span>API Gateway (AWS)</span>
+        <code>{{ awsApiUrl }}/cep/&#123;cep&#125;</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="card consulta-card">
+    <h2>Consultar CEP</h2>
+    <form class="consulta-form" (ngSubmit)="consultar()">
+      <label for="cep">CEP</label>
+      <div class="consulta-form__row">
+        <input
+          id="cep"
+          name="cep"
+          type="text"
+          inputmode="numeric"
+          maxlength="9"
+          placeholder="00000-000"
+          [ngModel]="cepInput"
+          (ngModelChange)="onCepInput($event)"
+          [disabled]="loading()"
+        />
+        <button type="submit" [disabled]="loading()">
+          {{ loading() ? 'Consultando...' : 'Consultar' }}
+        </button>
+      </div>
+    </form>
+
+    @if (errorMessage()) {
+      <p class="alert alert--error" role="alert">{{ errorMessage() }}</p>
+    }
+
+    @if (result(); as r) {
+      <div class="result-meta">
+        <span class="badge" [class.badge--ok]="r.status >= 200 && r.status < 300">
+          HTTP {{ r.status || '—' }}
+        </span>
+        <span>{{ r.durationMs }} ms</span>
+        <code class="result-url">{{ r.requestUrl }}</code>
+      </div>
+
+      @if (r.body; as body) {
+        @if (body.valido) {
+          <dl class="address-grid">
+            <div><dt>CEP</dt><dd>{{ body.cep }}</dd></div>
+            <div><dt>Logradouro</dt><dd>{{ body.logradouro }}</dd></div>
+            <div><dt>Bairro</dt><dd>{{ body.bairro }}</dd></div>
+            <div><dt>Cidade</dt><dd>{{ body.localidade }}</dd></div>
+            <div><dt>UF</dt><dd>{{ body.uf }}</dd></div>
+            <div><dt>IBGE</dt><dd>{{ body.ibge }}</dd></div>
+          </dl>
+        }
+      }
+
+      <details class="raw-json">
+        <summary>Resposta JSON</summary>
+        <pre>{{ r.body | json }}</pre>
+      </details>
+    }
+  </section>
+</div>
