@@ -1,0 +1,85 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LambdaFullProject",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:*"
+      ],
+      "Resource": [
+        "arn:aws:lambda:sa-east-1:675134942829:function:validador-cep-*",
+        "arn:aws:lambda:sa-east-1:675134942829:function:validador-cep-*:*"
+      ]
+    },
+    {
+      "Sid": "ApiGatewayV2FullProject",
+      "Effect": "Allow",
+      "Action": [
+        "apigateway:GET",
+        "apigateway:POST",
+        "apigateway:PUT",
+        "apigateway:PATCH",
+        "apigateway:DELETE",
+        "apigateway:TagResource",
+        "apigateway:UntagResource"
+      ],
+      "Resource": [
+        "arn:aws:apigateway:sa-east-1::/apis",
+        "arn:aws:apigateway:sa-east-1::/apis/*",
+        "arn:aws:apigateway:sa-east-1::/apis/*/*"
+      ]
+    },
+    {
+      "Sid": "CloudWatchLogsLambdaProject",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:DeleteLogGroup",
+        "logs:DescribeLogGroups",
+        "logs:ListTagsForResource",
+        "logs:ListTagsLogGroup",
+        "logs:PutRetentionPolicy",
+        "logs:DeleteRetentionPolicy",
+        "logs:TagLogGroup",
+        "logs:TagResource",
+        "logs:UntagLogGroup",
+        "logs:UntagResource"
+      ],
+      "Resource": "arn:aws:logs:sa-east-1:675134942829:log-group:/aws/lambda/validador-cep-*"
+    },
+    {
+      "Sid": "IAMRolesForLambdaProject",
+      "Effect": "Allow",
+      "Action": [
+        "iam:AttachRolePolicy",
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:DetachRolePolicy",
+        "iam:GetRole",
+        "iam:GetRolePolicy",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListRolePolicies",
+        "iam:ListInstanceProfilesForRole",
+        "iam:PassRole",
+        "iam:PutRolePolicy",
+        "iam:TagRole",
+        "iam:UntagRole",
+        "iam:UpdateRole",
+        "iam:UpdateAssumeRolePolicy"
+      ],
+      "Resource": "arn:aws:iam::675134942829:role/validador-cep-*-lambda-role"
+    },
+    {
+      "Sid": "AttachLambdaBasicExecutionPolicy",
+      "Effect": "Allow",
+      "Action": "iam:AttachRolePolicy",
+      "Resource": "arn:aws:iam::675134942829:role/validador-cep-*-lambda-role",
+      "Condition": {
+        "ArnLike": {
+          "iam:PolicyARN": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      }
+    }
+  ]
+}
