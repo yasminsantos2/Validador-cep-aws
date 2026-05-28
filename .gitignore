@@ -1,0 +1,74 @@
+# --- Sistema operacional ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- IDEs ---
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+.project
+.classpath
+.settings/
+*.sublime-workspace
+
+# --- Segredos e ambiente ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials
+**/application-local.properties
+**/application-local.yml
+
+# --- Java / Maven (cep) ---
+cep/target/
+cep/.mvn/wrapper/maven-wrapper.jar
+cep/HELP.md
+*.class
+*.jar
+*.war
+*.log
+
+# --- Node / Angular (frontend) ---
+frontend/meu-app/node_modules/
+frontend/meu-app/dist/
+frontend/meu-app/.angular/
+frontend/meu-app/npm-debug.log*
+frontend/meu-app/yarn-error.log*
+frontend/meu-app/.sass-cache/
+frontend/meu-app/coverage/
+frontend/meu-app/__screenshots__/
+
+# --- Terraform ---
+validador-cep-terraform/.terraform/
+validador-cep-terraform/.terraform.lock.hcl
+validador-cep-terraform/build/
+validador-cep-terraform/*.tfstate
+validador-cep-terraform/*.tfstate.*
+validador-cep-terraform/*.tfvars
+!validador-cep-terraform/*.tfvars.example
+validador-cep-terraform/crash.log
+validador-cep-terraform/override.tf
+validador-cep-terraform/override.tf.json
+validador-cep-terraform/*_override.tf
+validador-cep-terraform/*_override.tf.json
+
+# --- Python (cliente opcional) ---
+cep/fastapi_client/.venv/
+cep/fastapi_client/__pycache__/
+cep/fastapi_client/*.pyc
+cep/fastapi_client/.pytest_cache/
+
+# --- Build / cache geral ---
+*.tsbuildinfo
+tmp/
+temp/
+out/
